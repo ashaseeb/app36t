@@ -5,7 +5,13 @@ app_description = "application36T"
 app_email = "support@i36t.com"
 app_license = "mit"
 
-fixtures=[{"dt":"Custom Field","filters":[["module","=","Applicant36t"]]}]
+fixtures=[
+    "Server Script",
+    "Client Script",
+    {"dt":"Custom Field","filters":[["module","=","Applicant36t"]]}
+    ]
+
+
 
 # Apps
 # ------------------

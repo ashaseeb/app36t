@@ -1,0 +1,162 @@
+{
+ "actions": [],
+ "autoname": "APPLICANT-{####}",
+ "creation": "2024-10-17 10:29:07.561937",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "primary_information_section",
+  "first_name",
+  "last_name",
+  "full_name",
+  "number_of_dependants",
+  "column_break_rpew",
+  "date_of_birth",
+  "country_of_birth",
+  "chose_a_designation_youre_interested_in",
+  "skills_tab",
+  "applicant_skills",
+  "ai_analysis_tab",
+  "profile_analysis",
+  "do_profile_analysis",
+  "column_break_rffi",
+  "future_analysis",
+  "do_future_analysis",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "primary_information_section",
+   "fieldtype": "Section Break",
+   "label": "Primary Information"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date Of Birth",
+   "reqd": 1
+  },
+  {
+   "fieldname": "number_of_dependants",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Number of Dependant(s)",
+   "options": "NumbersList",
+   "reqd": 1
+  },
+  {
+   "fieldname": "country_of_birth",
+   "fieldtype": "Link",
+   "label": "Country Of Birth",
+   "options": "Country"
+  },
+  {
+   "fieldname": "column_break_rpew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "chose_a_designation_youre_interested_in",
+   "fieldtype": "Link",
+   "label": "Chose A Designation You're Interested in",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "skills_tab",
+   "fieldtype": "Tab Break",
+   "label": "Skills"
+  },
+  {
+   "fieldname": "applicant_skills",
+   "fieldtype": "Table",
+   "label": "Applicant Skills",
+   "options": "Applicant Skills"
+  },
+  {
+   "fieldname": "ai_analysis_tab",
+   "fieldtype": "Tab Break",
+   "label": "AI Analysis"
+  },
+  {
+   "fieldname": "profile_analysis",
+   "fieldtype": "Small Text",
+   "label": "Profile Analysis"
+  },
+  {
+   "fieldname": "do_profile_analysis",
+   "fieldtype": "Button",
+   "label": "Do Profile Analysis"
+  },
+  {
+   "fieldname": "column_break_rffi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "future_analysis",
+   "fieldtype": "Small Text",
+   "label": "Future Analysis"
+  },
+  {
+   "fieldname": "do_future_analysis",
+   "fieldtype": "Button",
+   "label": "Do Future Analysis"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Applicant Profile",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-10-24 11:53:31.202343",
+ "modified_by": "Administrator",
+ "module": "Applicant36t",
+ "name": "Applicant Profile",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

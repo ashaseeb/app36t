@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class ApplicantPrimaryInfo(Document):
+class NumbersList(Document):
 	pass
