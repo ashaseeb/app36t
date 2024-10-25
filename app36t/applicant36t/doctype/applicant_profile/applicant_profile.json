@@ -17,11 +17,8 @@
   "skills_tab",
   "applicant_skills",
   "ai_analysis_tab",
-  "profile_analysis",
   "do_profile_analysis",
-  "column_break_rffi",
-  "future_analysis",
-  "do_future_analysis",
+  "profile_analysis",
   "amended_from"
  ],
  "fields": [
@@ -91,27 +88,13 @@
   },
   {
    "fieldname": "profile_analysis",
-   "fieldtype": "Small Text",
+   "fieldtype": "Text Editor",
    "label": "Profile Analysis"
   },
   {
    "fieldname": "do_profile_analysis",
    "fieldtype": "Button",
    "label": "Do Profile Analysis"
-  },
-  {
-   "fieldname": "column_break_rffi",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "future_analysis",
-   "fieldtype": "Small Text",
-   "label": "Future Analysis"
-  },
-  {
-   "fieldname": "do_future_analysis",
-   "fieldtype": "Button",
-   "label": "Do Future Analysis"
   },
   {
    "fieldname": "amended_from",
@@ -133,7 +116,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-24 11:53:31.202343",
+ "modified": "2024-10-24 18:28:37.551372",
  "modified_by": "Administrator",
  "module": "Applicant36t",
  "name": "Applicant Profile",
@@ -156,6 +139,7 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+ "title_field": "full_name",
  "track_changes": 1,
  "track_seen": 1,
  "track_views": 1
