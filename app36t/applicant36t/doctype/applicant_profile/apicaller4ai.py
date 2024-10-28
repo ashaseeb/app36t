@@ -1,10 +1,7 @@
 import frappe
 import http.client
 import json
-
-
 import google.generativeai as genai
-import os
 
 @frappe.whitelist()
 def myGoogleAPI(**args):
@@ -12,8 +9,8 @@ def myGoogleAPI(**args):
     genai.configure(api_key="AIzaSyBH7fT0807PImOtzCDcJL4pVKAWAuJh73g")
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(AI_InquryText)
-    print(response.text)
-    return response.text
+    # print(respoe.text)
+    return "response.text"
 
 
 @frappe.whitelist()
