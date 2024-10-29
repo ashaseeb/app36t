@@ -1,12 +1,27 @@
-from datetime import date, datetime,timedelta
-from dateutil.relativedelta import relativedelta
-from dateutil import parser
-import requests
 import frappe
+import requests
 import http.client
 import json
 import google.generativeai as genai
-import os
+from datetime import date, datetime,timedelta
+from dateutil.relativedelta import relativedelta
+from dateutil import parser
+
+@frappe.whitelist(allow_guest=True)
+def MyTestAPI(dob):
+    result={"data":"This is my data"}
+    return result
+
+
+@frappe.whitelist(allow_guest=True)
+def getAgeString(dob):
+    today = datetime.today()
+    dob = parser.parse(dob)
+    age = relativedelta(today, dob)
+    result = f"Your age is {age.days} days, {age.months} months and {age.years} years"
+    return result
+
+
 
 
 @frappe.whitelist(allow_guest=True)
@@ -32,14 +47,6 @@ def getWeatherInfo():
     frappe.log(data)  # Print or process the data as needed
     return data
 
-@frappe.whitelist(allow_guest=True)
-def getAgeString(dob):
-    today = datetime.today()
-    dob = parser.parse(dob)
-    age = relativedelta(today, dob)
-    result = f"Your age is {age.days} days, {age.months} months and {age.years} years"
-    return result
-
 
 
 @frappe.whitelist(allow_guest=True)
@@ -57,7 +64,7 @@ def getContentGeminiAPIhttpReq(**args):
     conn.request("POST", "/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBH7fT0807PImOtzCDcJL4pVKAWAuJh73g", payload, headers)
     res = conn.getresponse()
     # data = res.read()
-    data = res.read()
+    data = res.json()
     data2 = data["candidates"][0]["content"]["parts"][0]["text"]
     # return data.decode("utf-8")
     # parsed_message = json.loads(data.decode("utf-8"))
