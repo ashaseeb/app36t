@@ -2,7 +2,8 @@ import frappe
 import requests
 import http.client
 import json
-import google.genrativeai as genai
+# import google.generativeai as genai
+import os
 from datetime import date, datetime,timedelta
 from dateutil.relativedelta import relativedelta
 from dateutil import parser
@@ -61,37 +62,40 @@ def getContentGeminiAPIhttpReq(**args):
     }
     conn.request("POST", "/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBH7fT0807PImOtzCDcJL4pVKAWAuJh73g", payload, headers)
     res = conn.getresponse()
-    # data = res.read()
-    data = res.json()
-    data2 = data["candidates"][0]["content"]["parts"][0]["text"]
-    # return data.decode("utf-8")
-    # parsed_message = json.loads(data.decode("utf-8"))
-    # text = parsed_message["candidates"][0]["content"]["parts"][0]["text"]
-    # return text
-    return data2
+    
+    result1 = res.read()
+    return result1.decode("utf-8")
+
+    # result2 = res.json()
+    # result2 = result2["candidates"][0]["content"]["parts"][0]["text"]
+    # return result2
+    
+    # myjson=res.decode("utf-8")
+    # result3 = json.loads(myjson)
+    # return result3["candidates"][0]["content"]["parts"][0]["text"]
 
 
-@frappe.whitelist(allow_guest=True)
-def getContentGeminiAPIModel(**args):
-    AI_InquryText = args.get('AI_InquryText')
+# @frappe.whitelist(allow_guest=True)
+# def getContentGeminiAPIModel(**args):
+#     AI_InquryText = args.get('AI_InquryText')
 
-    if not AI_InquryText:
-        frappe.throw("AI_InquryText is required")
+#     if not AI_InquryText:
+#         frappe.throw("AI_InquryText is required")
 
-    try:
-        # Configure API key securely (consider using environment variables)
-        genai.configure(api_key="AIzaSyBH7fT0807PImOtzCDcJL4pVKAWAuJh73g")
+#     try:
+#         # Configure API key securely (consider using environment variables)
+#         genai.configure(api_key="AIzaSyBH7fT0807PImOtzCDcJL4pVKAWAuJh73g")
 
-        # Initialize and call the model
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(AI_InquryText)
+#         # Initialize and call the model
+#         model = genai.GenerativeModel("gemini-1.5-flash")
+#         response = model.generate_content(AI_InquryText)
 
-        # Return the actual response text
-        return response.text
+#         # Return the actual response text
+#         return response.text
 
-    except Exception as e:
-        # Log the error and raise a Frappe exception
-        frappe.log_error(f"Error in getContentGeminiAPIModel: {str(e)}", "Gemini API Error")
-        frappe.throw(f"An error occurred while generating content: {str(e)}")
+#     except Exception as e:
+#         # Log the error and raise a Frappe exception
+#         frappe.log_error(f"Error in getContentGeminiAPIModel: {str(e)}", "Gemini API Error")
+#         frappe.throw(f"An error occurred while generating content: {str(e)}")
 
 
