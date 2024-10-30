@@ -2,7 +2,7 @@ import frappe
 import requests
 import http.client
 import json
-import google.generativeai as genai
+import google.genrativeai as genai
 from datetime import date, datetime,timedelta
 from dateutil.relativedelta import relativedelta
 from dateutil import parser
@@ -20,8 +20,6 @@ def getAgeString(dob):
     age = relativedelta(today, dob)
     result = f"Your age is {age.days} days, {age.months} months and {age.years} years"
     return result
-
-
 
 
 @frappe.whitelist(allow_guest=True)
