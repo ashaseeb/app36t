@@ -2,50 +2,11 @@
 // For license information, please see license.txt
 
  frappe.ui.form.on("Applicant Profile", {
- 	refresh(frm) {
-        frm.add_custom_button(__('AI Summary'),function(){
-            try{
-                //console.log(frm.selected_doc.first_name);
-                const first_name=frm.selected_doc.first_name;
-                const last_name=frm.selected_doc.last_name;
-                const number_of_dependants=frm.selected_doc.number_of_dependants;
-                const chose_a_designation_youre_interested_in=(frm.selected_doc.chose_a_designation_youre_interested_in=null?"":frm.selected_doc.chose_a_designation_youre_interested_in);
-                const country_of_birth=frm.selected_doc.country_of_birth;
-                const date_of_birth=frm.selected_doc.date_of_birth;
-    
-                if(typeof first_name === 'undefined' || first_name === null) {throw "No applicant's information found";}
-    
-                var skills = "";
-                $.each(frm.doc.applicant_skills,  function(i,  d) {
-                    skills += d.skill+', ';
-                });
-                // alert(skills);
-    
-                var AI_InquryText = 'write details on applicant profile in a very good format such as full name, age calculated from the date of birth, desired position a bold heading and regular text. second add a summaryheading and write detail para on his profile adding  age,cultural,good looking benefits,  and in last add five points how this profile can be beneficial for the company considering his skills. the response must be in html format with tags.here is the applicant profile, first name is \''+first_name+'\' and last name is \''+last_name+'\'. date of birth is '+date_of_birth +'  country of birth \''+country_of_birth+'\' having skills such as '+skills+'.  he/she is interested in '+chose_a_designation_youre_interested_in+' Position.';
-                
-                frappe.call({
-                    // method:"app36t.applicant36t.doctype.applicant_profile.apicaller4ai.myGoogleAPI",
-                    method:"app36t.apis36t.getContentGeminiAPIhttpReq",
-                    args:{'AI_InquryText':AI_InquryText},
-                    callback: function(r){
-                        frappe.show_alert({
-                            message:__('AI Analysis Report is ready,</br>Please check <b>AI Analysis</b> information...'),
-                            indicator:'green'
-                        }, 5);
-                        console.log("got callback within JS file, response is below");
-                        console.log(r);
-                        frm.set_value('profile_analysis', r['message']);
-                    }
-                })
-            }catch (e) {
-                // TODO: handle exception
-                alert("Hsb:error in JS file while calling API app36t.APIs36t.getContentGeminiAPIModel")
-                console.log(e.message);
-            }
-        })
-  	},
-
-    date_of_birth(frm){
+    refresh: function(frm) {
+        // alert("refreshed");
+        frm.set_df_property('custom_current_location', 'hidden', 1);
+    },
+    date_of_birth (frm){
         // alert('Date of Birth Event Called here');
         dob=frm.selected_doc.date_of_birth
         frappe.call({
@@ -59,5 +20,102 @@
                 // console.log(message)
             }
         })
-    }
- });
+    },
+
+    do_profile_analysis(frm){
+        // alert("clicked by hsb in JS on do_profile_analysis!!!")
+        try{
+            //console.log(frm.selected_doc.first_name);
+            const first_name=frm.selected_doc.first_name;
+            const last_name=frm.selected_doc.last_name;
+            const number_of_dependants=frm.selected_doc.number_of_dependants;
+            const chose_a_designation_youre_interested_in=(frm.selected_doc.chose_a_designation_youre_interested_in=null?"":frm.selected_doc.chose_a_designation_youre_interested_in);
+            const country_of_birth=frm.selected_doc.country_of_birth;
+            const date_of_birth=frm.selected_doc.date_of_birth;
+
+            if(typeof first_name === 'undefined' || first_name === null) {throw "No applicant's information found";}
+
+            var skills = "";
+            $.each(frm.doc.applicant_skills,  function(i,  d) {
+                skills += d.skill+', ';
+            });
+            // alert(skills);
+
+            var AI_InquryText = 'write details on applicant profile in a very good format such as full name, age calculated from the date of birth, desired position a bold heading and regular text. second add a summaryheading and write detail para on his profile adding  age,cultural,good looking benefits,  and in last add five points how this profile can be beneficial for the company considering his skills. the response must be in html format with tags.here is the applicant profile, first name is \''+first_name+'\' and last name is \''+last_name+'\'. date of birth is '+date_of_birth +'  country of birth \''+country_of_birth+'\' having skills such as '+skills+'.  he/she is interested in '+chose_a_designation_youre_interested_in+' Position.';
+            
+            frappe.call({
+                // method:"app36t.applicant36t.doctype.applicant_profile.apicaller4ai.myGoogleAPI",
+                method:"app36t.apis36t.getContentGeminiAPIhttpReq",
+                args:{'AI_InquryText':AI_InquryText},
+                callback: function(r){
+                    frappe.show_alert({
+                        message:__('AI Analysis Report is ready,</br>Please check <b>AI Analysis</b> information...'),
+                        indicator:'green'
+                    }, 5);
+                    console.log("got callback within JS file, response is below");
+                    console.log(r);
+                    frm.set_value('profile_analysis', r['message']);
+                }
+            })
+        }catch (e) {
+            // TODO: handle exception
+            alert("Hsb:error in JS file while calling API app36t.APIs36t.getContentGeminiAPIModel")
+            console.log(e.message);
+        }
+    },
+    custom_capture_now(frm){
+        try{
+            frappe.call({
+                method:"app36t.apis36t.getWeatherInfo",
+                callback: function(r){
+                    frappe.show_alert({
+                        message:__('Geolocation API is called,</br>Please check <b>Weather Analysis</b>...'),
+                        indicator:'green'
+                    }, 5);
+                    // console.log("got callback within JS file for Weather API, response is below");
+                    // console.log(r);
+                    // console.log(r['message']);
+
+                    latitude=r['message']["latitude"]
+                    longitude=r['message']["longitude"]
+
+                    // frm.set_value('custom_latitude', latitude);
+                    // frm.set_value('custom_longitude', longitude);
+                    frm.set_value('custom_applicant_time_zone', r['message']["timezone"]);
+                    frm.set_value('custom_temperature', r['message']['current_weather']["temperature"]);
+                    frm.set_value('custom_windspeed', r['message']['current_weather']["windspeed"]);
+                    frm.set_value('custom_date_time', r['message']['current_weather']["time"]);
+                    
+                    //frm.set_value('custom_current_location', {latitude},{longitude});
+                    //frm.set_value('custom_current_location', '${latitude},${longitude}');
+                    // frm.fields_dict.custom_current_location.map.setView('${latitude}, ${longitude}', 13);
+                    // frm.fields_dict.custom_current_location.map.latitude(latitude)
+                    // frm.fields_dict.custom_current_location.map.longitude(longitude)
+
+                    frm.set_df_property('custom_current_location', 'hidden', 0);
+                    frm.fields_dict.custom_current_location.map.on('locationfound', function(e) {
+                        var radius = e.accuracy;
+                        var marker = L.marker(e.latlng).addTo(frm.fields_dict.custom_current_location.map)
+                            .bindPopup('I am here!').openPopup();
+                        var circle = L.circle(e.latlng, radius).addTo(frm.fields_dict.custom_current_location.map);
+                        // frm.set_value("device_id", e.latitude + ' ' + e.longitude);
+                        frm.set_value('custom_latitude', e.latitude);
+                        frm.set_value('custom_longitude', e.longitude);
+                    });
+                
+                    frm.fields_dict.custom_current_location.map.on('locationerror', function(e) {
+                        console.error('Geolocation error: ' + e.message);
+                    });
+
+                    frm.fields_dict.custom_current_location.map.locate({setView:true});
+                    frm.fields_dict.custom_current_location.setView=true;
+                    frm.refresh_field('custom_current_location');
+                }
+            })            
+        }catch (e) {
+            // TODO: handle exception
+            alert("Hsb:error in JS file while calling API for weather detail")
+            console.log(e.message);
+        }
+    },
+});

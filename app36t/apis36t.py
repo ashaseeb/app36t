@@ -43,7 +43,7 @@ def getWeatherInfo():
     else:
         data = f'Error:'+str({response.status_code})
 
-    frappe.log(data)  # Print or process the data as needed
+    # frappe.log(data)  # Print or process the data as needed
     return data
 
 
