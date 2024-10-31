@@ -68,17 +68,13 @@
             frappe.call({
                 method:"app36t.apis36t.getWeatherInfo",
                 callback: function(r){
-                    frappe.show_alert({
-                        message:__('Geolocation API is called,</br>Please check <b>Weather Analysis</b>...'),
-                        indicator:'green'
-                    }, 5);
                     // console.log("got callback within JS file for Weather API, response is below");
                     // console.log(r);
                     // console.log(r['message']);
 
-                    latitude=r['message']["latitude"]
-                    longitude=r['message']["longitude"]
-
+                    latitude=r['message']["latitude"];
+                    longitude=r['message']["longitude"];
+                
                     // frm.set_value('custom_latitude', latitude);
                     // frm.set_value('custom_longitude', longitude);
                     frm.set_value('custom_applicant_time_zone', r['message']["timezone"]);
@@ -92,8 +88,18 @@
                     // frm.fields_dict.custom_current_location.map.latitude(latitude)
                     // frm.fields_dict.custom_current_location.map.longitude(longitude)
 
+                    
+                    // if (!e.latitude) frappe.show_alert({
+                    //     message:__('ALERT! Cannot Access Current Location</br> Please allow this website to access your current location'),
+                    //     indicator:'red'
+                    // }, 5);
+                    
+
+
+
                     frm.set_df_property('custom_current_location', 'hidden', 0);
                     frm.fields_dict.custom_current_location.map.on('locationfound', function(e) {
+ 
                         var radius = e.accuracy;
                         var marker = L.marker(e.latlng).addTo(frm.fields_dict.custom_current_location.map)
                             .bindPopup('I am here!').openPopup();
@@ -101,20 +107,36 @@
                         // frm.set_value("device_id", e.latitude + ' ' + e.longitude);
                         frm.set_value('custom_latitude', e.latitude);
                         frm.set_value('custom_longitude', e.longitude);
+
+
                     });
                 
                     frm.fields_dict.custom_current_location.map.on('locationerror', function(e) {
-                        console.error('Geolocation error: ' + e.message);
-                    });
+                        frappe.show_alert({
+                            message:__('Cannot access your location, To get more information please allow locatino access.'),
+                            indicator:'red'
+                            }, 5);
+                            // frm.set_df_property('custom_current_location', 'hidden', 1);
+                        });
 
                     frm.fields_dict.custom_current_location.map.locate({setView:true});
                     frm.fields_dict.custom_current_location.setView=true;
                     frm.refresh_field('custom_current_location');
+
+                    frappe.show_alert({
+                    message:__('Geolocation API is called,</br>Please check <b>Weather Analysis</b>...'),
+                    indicator:'green'
+                    }, 5);
                 }
             })            
         }catch (e) {
             // TODO: handle exception
-            alert("Hsb:error in JS file while calling API for weather detail")
+            // alert("Hsb:error in JS file while calling API for weather detail")
+            // alert(e.longitude);
+            frappe.show_alert({
+                message:(e.message),
+                indicator:'red'
+            }, 5);   
             console.log(e.message);
         }
     },
