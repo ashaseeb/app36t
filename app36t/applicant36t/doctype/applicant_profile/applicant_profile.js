@@ -113,7 +113,7 @@
                 
                     frm.fields_dict.custom_current_location.map.on('locationerror', function(e) {
                         frappe.show_alert({
-                            message:__('Cannot access your location, To get more information please allow locatino access.'),
+                            message:__('Cannot access your location, <br>please grant access for better result.'),
                             indicator:'red'
                             }, 5);
                             // frm.set_df_property('custom_current_location', 'hidden', 1);
