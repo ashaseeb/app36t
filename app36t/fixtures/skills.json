@@ -1,0 +1,30 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Skills",
+  "modified": "2024-10-30 21:45:39.068799",
+  "name": "Python",
+  "skill_name": "Python"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Skills",
+  "modified": "2024-10-30 21:37:52.499314",
+  "name": "Leadership",
+  "skill_name": "Leadership"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Skills",
+  "modified": "2024-10-30 21:37:35.904871",
+  "name": "C#",
+  "skill_name": "C#"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Skills",
+  "modified": "2024-10-31 19:50:18.039446",
+  "name": "Programming",
+  "skill_name": "Programming"
+ }
+]

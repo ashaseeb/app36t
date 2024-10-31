@@ -8,6 +8,8 @@ app_license = "mit"
 fixtures=[
     "Server Script",
     "Client Script",
+    "Skills",
+    "NumbersList",
     {"dt":"Custom Field","filters":[["module","=","Applicant36t"]]}
     ]
 
