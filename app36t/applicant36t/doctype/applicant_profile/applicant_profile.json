@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "autoname": "APPLICANT-{####}",
  "creation": "2024-10-17 10:29:07.561937",
  "doctype": "DocType",
@@ -19,7 +20,8 @@
   "ai_analysis_tab",
   "do_profile_analysis",
   "profile_analysis",
-  "amended_from"
+  "amended_from",
+  "route"
  ],
  "fields": [
   {
@@ -111,12 +113,18 @@
    "fieldtype": "Data",
    "label": "Full Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Route"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-24 18:28:37.551372",
+ "modified": "2024-10-31 18:12:12.608441",
  "modified_by": "Administrator",
  "module": "Applicant36t",
  "name": "Applicant Profile",

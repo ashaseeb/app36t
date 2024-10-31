@@ -9,12 +9,6 @@ from dateutil.relativedelta import relativedelta
 from dateutil import parser
 
 @frappe.whitelist(allow_guest=True)
-def MyTestAPI(dob):
-    result={"data":"This is my data"}
-    return result
-
-
-@frappe.whitelist(allow_guest=True)
 def getAgeString(dob):
     today = datetime.today()
     dob = parser.parse(dob)
@@ -54,7 +48,7 @@ def getContentGeminiAPIhttpReq(**args):
     conn = http.client.HTTPSConnection("generativelanguage.googleapis.com")
     payload = json.dumps({
         "contents": [
-        {"parts": [{"text": AI_InquryText}]}
+        {"parts": [{"text": AI_InquryText}]} 
         ]
     })
     headers = {

@@ -42,7 +42,7 @@
             // alert(skills);
 
             var AI_InquryText = 'write details on applicant profile in a very good format such as full name, age calculated from the date of birth, desired position a bold heading and regular text. second add a summaryheading and write detail para on his profile adding  age,cultural,good looking benefits,  and in last add five points how this profile can be beneficial for the company considering his skills. the response must be in html format with tags.here is the applicant profile, first name is \''+first_name+'\' and last name is \''+last_name+'\'. date of birth is '+date_of_birth +'  country of birth \''+country_of_birth+'\' having skills such as '+skills+'.  he/she is interested in '+chose_a_designation_youre_interested_in+' Position.';
-            
+
             frappe.call({
                 // method:"app36t.applicant36t.doctype.applicant_profile.apicaller4ai.myGoogleAPI",
                 method:"app36t.apis36t.getContentGeminiAPIhttpReq",
@@ -55,11 +55,15 @@
                     console.log("got callback within JS file, response is below");
                     console.log(r);
                     frm.set_value('profile_analysis', r['message']);
-                }
+                },
+                freeze:true,
+                freeze_message:__('<span style="display: block;text-align:center;">'
+                                 +'<img src="https://cdn.pixabay.com/animation/2023/08/21/13/31/13-31-04-403_512.gif" alt="Processing" style="width:100px; height:100px;"></br>'
+                                 +'Please Wait...</br>AI is Reviewing the request</span>'),
             })
         }catch (e) {
             // TODO: handle exception
-            alert("Hsb:error in JS file while calling API app36t.APIs36t.getContentGeminiAPIModel")
+            alert("Hsb:error in JS file while calling API app36t.APIs36t.getContentGeminiAPIModel "+e.message)
             console.log(e.message);
         }
     },
@@ -113,7 +117,7 @@
                 
                     frm.fields_dict.custom_current_location.map.on('locationerror', function(e) {
                         frappe.show_alert({
-                            message:__('Cannot access your location, <br>please grant access for better result.'),
+                            message:__('Cannot access your location, To get more information please allow locatino access.'),
                             indicator:'red'
                             }, 5);
                             // frm.set_df_property('custom_current_location', 'hidden', 1);
