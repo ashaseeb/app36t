@@ -10,6 +10,12 @@ frappe.ui.form.on("Applicant Profile", {
         }
     },
 
+    custom_not_eligible_for_dependants: function(frm){
+        if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){frm.set_df_property('custom_about_applicant', 'hidden', 1);}
+        else {frm.set_df_property('custom_about_applicant', 'hidden', 0);}
+        frm.refresh_field('custom_about_applicant');
+    },
+
     custom_auto_fill: function(frm){
         //Code For New Row In Child Table => let row = frm.add_child('applicant_skills',{skill:'Leadership',number_of_experience:2,rating:4})
         frappe.call({
