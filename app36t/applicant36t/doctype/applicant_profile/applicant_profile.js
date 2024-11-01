@@ -9,6 +9,17 @@
             frm.set_intro('Please allow location access to this page which will give brief detail.');
         }
     },
+    custom_auto_fill: function(frm){
+        let row = frm.add_child('applicant_skills',{
+            skill:'Leadership',
+            number_of_experience:2,
+            rating:4
+        })
+        // alert("Clicked!!")
+        frm.refresh_field('applicant_skills');
+
+    },
+
     date_of_birth (frm){
         // alert('Date of Birth Event Called here');
         dob=frm.selected_doc.date_of_birth
