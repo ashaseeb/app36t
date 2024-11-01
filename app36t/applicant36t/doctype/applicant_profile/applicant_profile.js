@@ -5,6 +5,9 @@
     refresh: function(frm) {
         // alert("refreshed");
         frm.set_df_property('custom_current_location', 'hidden', 1);
+        if (frm.is_new()){
+            frm.set_intro('Please allow location access to this page which will give brief detail.');
+        }
     },
     date_of_birth (frm){
         // alert('Date of Birth Event Called here');
