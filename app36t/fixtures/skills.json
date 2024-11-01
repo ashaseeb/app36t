@@ -9,9 +9,9 @@
  {
   "docstatus": 0,
   "doctype": "Skills",
-  "modified": "2024-10-30 21:37:52.499314",
-  "name": "Leadership",
-  "skill_name": "Leadership"
+  "modified": "2024-10-31 19:50:18.039446",
+  "name": "Programming",
+  "skill_name": "Programming"
  },
  {
   "docstatus": 0,
@@ -23,8 +23,8 @@
  {
   "docstatus": 0,
   "doctype": "Skills",
-  "modified": "2024-10-31 19:50:18.039446",
-  "name": "Programming",
-  "skill_name": "Programming"
+  "modified": "2024-10-30 21:37:52.499314",
+  "name": "Leadership",
+  "skill_name": "Leadership"
  }
 ]
