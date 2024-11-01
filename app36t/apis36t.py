@@ -16,6 +16,28 @@ def getAgeString(dob):
     result = f"Your age is {age.days} days, {age.months} months and {age.years} years"
     return result
 
+@frappe.whitelist(allow_guest=True)
+def getSkillList(totalRecordCount):
+    result=frappe.db.sql("SELECT" 
+                         +"  skill_name as _skillName"
+                         +", ABS(ROUND((RAND() * (10-0)+0))) as _number_of_experience"
+                         +", ROUND((RAND() * (1-0)+0),1) as _rating"
+                         +" FROM tabSkills")
+    # result=frappe.get_all("Skills")
+    # result = json.loads('''
+    # {
+    #     "name": "John Doe",
+    #     "age": 30,
+    #     "city": "New York",
+    #     "email": "john.doe@example.com",
+    #     "skills": [
+    #         {"name": "C#", "number_of_experience": 3,"rating":4},
+    #         {"name": "Leadership", "number_of_experience": 4,"rating":2}
+    #     ]
+    # }
+    # ''')
+    # result={"skilllist":[{"skillname":"C#"},{"skillname":"Leadership"},{"skillname":"Programming"}]}
+    return result
 
 @frappe.whitelist(allow_guest=True)
 def getWeatherInfo():
@@ -39,8 +61,6 @@ def getWeatherInfo():
 
     # frappe.log(data)  # Print or process the data as needed
     return data
-
-
 
 @frappe.whitelist(allow_guest=True)
 def getContentGeminiAPIhttpReq(**args):

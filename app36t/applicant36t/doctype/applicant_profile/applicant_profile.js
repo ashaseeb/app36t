@@ -1,7 +1,7 @@
 // Copyright (c) 2024, innovation36T and contributors
 // For license information, please see license.txt
-
- frappe.ui.form.on("Applicant Profile", {
+frappe.ui.form.on("Applicant Profile", {
+    
     refresh: function(frm) {
         // alert("refreshed");
         frm.set_df_property('custom_current_location', 'hidden', 1);
@@ -9,13 +9,59 @@
             frm.set_intro('Please allow location access to this page which will give brief detail.');
         }
     },
+
     custom_auto_fill: function(frm){
-        let row = frm.add_child('applicant_skills',{
-            skill:'Leadership',
-            number_of_experience:2,
-            rating:4
-        })
-        // alert("Clicked!!")
+        //Code For New Row In Child Table => let row = frm.add_child('applicant_skills',{skill:'Leadership',number_of_experience:2,rating:4})
+        frappe.call({
+            method:'app36t.apis36t.getSkillList',
+            args: {'totalRecordCount':3},
+            callback: function(r){
+                if (r.message) {
+                    // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    // console.log(r.message);
+                    // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    
+                    const _json = r.message;
+                    _json.forEach(data => {
+                        frm.add_child('applicant_skills',{
+                            skill: data[0],
+                            number_of_experience: data[1],
+                            rating: data[2]
+                        })
+                    });
+                    frm.refresh_field('applicant_skills');
+
+                    // const _json = r.message;
+                    // _json.skills.forEach(skill => {
+                    //     frm.add_child('applicant_skills',{
+                    //         skill: skill.name,
+                    //         number_of_experience: skill.number_of_experience,
+                    //         rating: skill.rating
+                    //     })
+                    // });
+                    // frm.refresh_field('applicant_skills');
+
+                    // frm.set_value('custom_age_string',r)
+                    // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    // console.log(_json);
+                    // alert(_json.age);
+                    // _json.skills.forEach(skill => {alert(skill);});
+                    // _json.projects.forEach(project => {alert(project.name);});
+                    // alert(_json.skills);
+                    // alert(r['message']);
+                    // const _json=JSON.parse(r['message']);
+                    // alert(_json.age);
+                    // jsonData = json.loads(r.message)
+                    // alert(jsonData);
+                    // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    // skills = data.get("skilllist", [])
+                    // alert(skills)
+                }else {
+                    console.error("No record found in response:", r);
+                }
+                console.log("Response:", r);
+            }
+        })        
         frm.refresh_field('applicant_skills');
 
     },
