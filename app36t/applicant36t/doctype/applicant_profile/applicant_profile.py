@@ -7,6 +7,7 @@ from frappe.model.document import Document
 
 class ApplicantProfile(Document):
     def validate(self):
+        frappe.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
         try:
             first_name=str(self.first_name if self.first_name is not None else "")
             last_name=str(self.last_name if not(self.last_name is None) else "")

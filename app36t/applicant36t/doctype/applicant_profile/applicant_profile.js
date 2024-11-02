@@ -1,18 +1,23 @@
 // Copyright (c) 2024, innovation36T and contributors
 // For license information, please see license.txt
 frappe.ui.form.on("Applicant Profile", {
-    
     refresh: function(frm) {
-        // alert("refreshed");
         frm.set_df_property('custom_current_location', 'hidden', 1);
+        frm.set_df_property('custom_about_applicant', 'reqd', 1);
         if (frm.is_new()){
             frm.set_intro('Please allow location access to this page which will give brief detail.');
         }
     },
 
     custom_not_eligible_for_dependants: function(frm){
-        if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){frm.set_df_property('custom_about_applicant', 'hidden', 1);}
-        else {frm.set_df_property('custom_about_applicant', 'hidden', 0);}
+        if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){
+            frm.set_df_property('custom_about_applicant', 'hidden', 1);
+            frm.set_df_property('custom_about_applicant', 'reqd', 0);
+        }
+        else {frm.set_df_property('custom_about_applicant', 'hidden', 0);
+            frm.set_df_property('custom_about_applicant', 'reqd', 1);
+        }
+        // frm.toggle_reqd('custom_about_applicant', true);
         frm.refresh_field('custom_about_applicant');
     },
 
