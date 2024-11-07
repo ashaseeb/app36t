@@ -9,6 +9,9 @@ frappe.ui.form.on("Applicant Profile", {
         }
     },
 
+
+
+
     custom_not_eligible_for_dependants: function(frm){
         if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){
             frm.set_df_property('custom_about_applicant', 'hidden', 1);
@@ -215,4 +218,21 @@ frappe.ui.form.on("Applicant Profile", {
             console.log(e.message);
         }
     },
-});
+})
+
+frappe.ui.form.on('Applicant Skills', {
+    // cdt is Child DocType name i.e Quotation Item
+    // cdn is the row name for e.g bbfcb8da6a
+
+    rating(frm, cdt, cdn) {
+        const targets = [0.333, 0.666, 0.999];
+        let row = frappe.get_doc(cdt, cdn);
+        // frappe.msgprint(row.skill);
+        let ratingValue = row.rating;
+        let gotAbsCount = targets.reduce((a, b) => 
+            Math.abs(ratingValue - a) < Math.abs(ratingValue - b) ? a : b
+        );
+        row.rating=gotAbsCount
+    }
+})
+     
