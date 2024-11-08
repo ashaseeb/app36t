@@ -7,6 +7,7 @@ import json
 from datetime import date, datetime,timedelta
 from dateutil.relativedelta import relativedelta
 from dateutil import parser
+import time
 
 @frappe.whitelist(allow_guest=True)
 def getAgeString(dob):
@@ -15,6 +16,17 @@ def getAgeString(dob):
     age = relativedelta(today, dob)
     result = f"Your age is {age.days} days, {age.months} months and {age.years} years"
     return result
+
+
+
+@frappe.whitelist(allow_guest=True)
+def getStringValueWithDelay():
+    import random
+    import string
+    time.sleep(3) # Delay for 1 minute (60 seconds).
+    result = ''.join(random.choices(string.ascii_letters + string.digits, k=50))
+    return result
+
 
 @frappe.whitelist(allow_guest=True)
 def getSkillList(totalRecordCount):
@@ -37,6 +49,7 @@ def getSkillList(totalRecordCount):
     # }
     # ''')
     # result={"skilllist":[{"skillname":"C#"},{"skillname":"Leadership"},{"skillname":"Programming"}]}
+    # time.sleep(3)
     return result
 
 @frappe.whitelist(allow_guest=True)

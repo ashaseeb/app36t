@@ -1,28 +1,224 @@
 // Copyright (c) 2024, innovation36T and contributors
 // For license information, please see license.txt
 frappe.ui.form.on("Applicant Profile", {
+    onload: function(frm) {
+        const tour_name = "Applicant Profile Tour";
+        frm.tour.init({tour_name}).then(() => frm.tour.start());
+    },
     refresh: function(frm) {
         frm.set_df_property('custom_current_location', 'hidden', 1);
         frm.set_df_property('custom_about_applicant', 'reqd', 1);
         if (frm.is_new()){
             frm.set_intro('Please allow location access to this page which will give brief detail.');
         }
+
+
+        // All Custom Button Examples
+        // REFERENCE => https://frappeframework.com/docs/user/en/api/dialog
+        frm.add_custom_button(__('Dialog API'), function() {
+            let d = new frappe.ui.Dialog({
+                title: 'Enter Details',
+                fields: [
+                    {
+                        label: 'First Name',
+                        fieldname: 'first_name',
+                        fieldtype: 'Data'
+                    },
+                    {
+                        label: 'Last Name',
+                        fieldname: 'last_name',
+                        fieldtype: 'Data'
+                    },
+                    {
+                        label: 'Age',
+                        fieldname: 'age',
+                        fieldtype: 'Int'
+                    }
+                ],
+                size: 'large', // small, large, extra-large 
+                primary_action_label: 'Submit',
+                primary_action(values) {
+                    console.log(values);
+                    d.hide();
+                    frappe.msgprint({titile:values.first_name
+                        ,indicator:'green'
+                        ,message:__("The Enter Values Are:</br>First Name is "+values.first_name+"</br>Last Name is "+values.last_name)
+                    })
+                }
+            });
+            d.show();
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Acknowlage Dialog'), function() {
+            // with server and client action
+            args={'MyArg01':3};
+            frappe.msgprint({
+                title: __('Notification'),
+                message: __('Are you sure you want to proceed?'),
+                primary_action: {
+                'label': 'Yes Proceed!',
+                // either one of the actions can be passed
+                // 'server_action': 'dotted.path.to.method',
+                // 'client_action': 'dotted_path.to_method',
+                // 'args': args
+                }
+            });            
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Error Message'), function() {
+            frappe.throw(__('This is an Error Message'))
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Prompt Single Field'), function() {
+            frappe.prompt('First Name', ({ value }) => console.log(value))
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Prompt With Title & Label'), function() {
+            frappe.prompt('First Name', console.log, 'Enter First Name', 'Please Submit');
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Prompt For Data Type'), function() {
+            // prompt for single value of any type
+            frappe.prompt({
+                label: 'Birth Date',
+                fieldname: 'date',
+                fieldtype: 'Date'
+            }, (values) => {
+                console.log(values.date);
+            },'Enter Data Of Birth','Please Submit')
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Prompt Multi Data Types'), function() {
+            frappe.prompt([
+                {
+                    label: 'First Name',
+                    fieldname: 'first_name',
+                    fieldtype: 'Data'
+                },
+                {
+                    label: 'Last Name',
+                    fieldname: 'last_name',
+                    fieldtype: 'Data'
+                },
+            ], (values) => {
+                console.log(values.first_name, values.last_name);
+            })
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Yes/No Confirmation Dialog'), function() {
+            frappe.confirm('Are you sure you want to proceed?',
+                () => {
+                    // action to perform if Yes is selected
+                    alert("Yes Chosen");
+                }, () => {
+                    // action to perform if No is selected
+                    alert("No Chosen");
+                })
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Warn Confirmation Dialog'), function() {
+            frappe.warn('Are you sure you want to proceed?',
+                'There are unsaved changes on this page',
+                () => {
+                    // action to perform if Continue is selected
+                    alert("Continue clicked")
+                },
+                'Continue',
+                true // Sets dialog as minimizable
+            )
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Show Alert Green'), function() {
+            //show_alert with indicator
+            frappe.show_alert({
+                message:__('Hi, you have a new message'),
+                indicator:'green'
+            }, 5);
+        }, __("Dialog Examples"));
+        frm.add_custom_button(__('Progress Dialog'), function() {
+            for (let i = 1; i <= 100; i++) {
+                // if (i % 10 === 0) continue;  // Skip multiples of 10
+                // Use a timeout to delay each iteration by 2 seconds (2000 ms)
+                setTimeout(function() {
+                    console.log(i);
+                    frappe.show_progress('Processing...', i, 100, 'Please wait',i>=99);
+                }, 10 * i);  // Multiply delay by `i` to achieve a cumulative delay
+            }
+        }, __("Dialog Examples"));    
+        frm.add_custom_button(__('Open DocType as a Dialog'), function() {
+            query_args=''
+            new frappe.ui.form.MultiSelectDialog({
+                doctype: "Task",
+                target: this.cur_frm,
+                setters: {
+                    status: 'Open'
+                },
+                add_filters_group: 1,
+                subject: "%Filter%here%",
+                columns: ["name", "subject", "status"],
+                get_query() {
+                    return query_args;
+                },
+                action(selections) {
+                    console.log(selections);
+                    cur_dialog.hide();
+                }
+            });
+            
+
+        }, __("Dialog Examples"));    
+        frm.add_custom_button(__('Table Dialog'), function() {
+            const dialog = new frappe.ui.Dialog({
+                title: __("Create Logs"),
+                fields: [
+                    {
+                        fieldname: "logs",
+                        fieldtype: "Table",
+                        label: __("Logs"),
+                        in_place_edit: true,
+                        reqd: 1,
+                        fields: [
+                            {
+                                fieldname: "log_type",
+                                label: __("Log Type"),
+                                fieldtype: "Select",
+                                options: `IN OUT`,
+                                in_list_view: 1,
+                                reqd: 1,
+                            },
+                            {
+                                fieldname: "time",
+                                label: __("Time"),
+                                fieldtype: "Time",
+                                in_list_view: 1,
+                                reqd: 1,
+                            }
+                        ],
+                        on_add_row: (idx) => {
+                          // idx = visible idx of the row starting from 1
+                          // eg. set `log_type` as alternating IN/OUT in the table on row addition
+                            let data_id = idx - 1;
+                            let logs = dialog.fields_dict.logs;
+                            let log_type = (data_id % 2) == 0 ? "IN" : "OUT";
+              
+                            logs.df.data[data_id].log_type = log_type;
+                            logs.grid.refresh();
+                        },
+                    },
+                ],
+                primary_action: (values) => { alert("Clicked!") },
+                primary_action_label: __("Create"),
+              });
+
+        }, __("Dialog Examples"));        
+        frm.add_custom_button(__('Scan Barcode ID'), function() {
+            new frappe.ui.Scanner({
+                dialog: true, // open camera scanner in a dialog
+                multiple: false, // stop after scanning one value
+                on_scan(data) {
+                console.log(data.decodedText);
+                }
+               });
+
+        }, __("Scanner"));   
+
     },
 
 
 
 
-    custom_not_eligible_for_dependants: function(frm){
-        if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){
-            frm.set_df_property('custom_about_applicant', 'hidden', 1);
-            frm.set_df_property('custom_about_applicant', 'reqd', 0);
-        }
-        else {frm.set_df_property('custom_about_applicant', 'hidden', 0);
-            frm.set_df_property('custom_about_applicant', 'reqd', 1);
-        }
-        // frm.toggle_reqd('custom_about_applicant', true);
-        frm.refresh_field('custom_about_applicant');
-    },
+
 
     custom_auto_fill: function(frm){
         //Code For New Row In Child Table => let row = frm.add_child('applicant_skills',{skill:'Leadership',number_of_experience:2,rating:4})
@@ -78,6 +274,39 @@ frappe.ui.form.on("Applicant Profile", {
         })        
         frm.refresh_field('applicant_skills');
 
+    },
+
+    //ACTIONS TAB
+    custom_disable_till_process_get_finish:function(frm){
+        frappe.call({
+            method:'app36t.apis36t.getStringValueWithDelay',
+            // btn: $('.custom_disable_till_process_get_finish'),
+            btn: $('.custom_disable_primary_button_till_process_get_finish'),
+            callback: function(r){
+                console.log(r)
+                frm.set_value('custom_result',r.message)
+            }
+        })
+    },
+    custom_disable_primary_button_till_process_get_finish:function(frm){
+        frappe.call({
+            method:'app36t.apis36t.getStringValueWithDelay',
+            btn: $('.primary-action'),
+            callback: function(r){
+                console.log(r)
+                frm.set_value('custom_result',r.message)
+            }
+        })
+    },
+    custom_free_screen:function(frm){
+        frappe.call({
+            method:'app36t.apis36t.getStringValueWithDelay',
+            freeze: true,
+            callback: function(r){
+                console.log(r)
+                frm.set_value('custom_result',r.message)
+            }
+        })
     },
 
     date_of_birth (frm){

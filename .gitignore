@@ -5,3 +5,7 @@
 tags
 node_modules
 __pycache__
+app36t/apis36t.py
+app36t/applicant36t/doctype/applicant_profile/applicant_profile_calendar.js
+app36t/applicant36t/doctype/applicant_profile/applicant_profile.js
+app36t/applicant36t/doctype/applicant_profile/event_calendar.js
