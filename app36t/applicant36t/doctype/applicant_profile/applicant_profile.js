@@ -1,18 +1,21 @@
 // Copyright (c) 2024, innovation36T and contributors
 // For license information, please see license.txt
+
+//Applicant Profile
 frappe.ui.form.on("Applicant Profile", {
+    //onload event
     onload: function(frm) {
         const tour_name = "Applicant Profile Tour";
         frm.tour.init({tour_name}).then(() => frm.tour.start());
     },
+
+    //refresh event
     refresh: function(frm) {
         frm.set_df_property('custom_current_location', 'hidden', 1);
         frm.set_df_property('custom_about_applicant', 'reqd', 1);
         if (frm.is_new()){
             frm.set_intro('Please allow location access to this page which will give brief detail.');
         }
-
-
         // All Custom Button Examples
         // REFERENCE => https://frappeframework.com/docs/user/en/api/dialog
         frm.add_custom_button(__('Dialog API'), function() {
@@ -215,11 +218,20 @@ frappe.ui.form.on("Applicant Profile", {
 
     },
 
+    //I not prefer to tell About show and hide
+    custom_not_eligible_for_dependants: function(frm){
+        if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){
+            frm.set_df_property('custom_about_applicant', 'hidden', 1);
+            frm.set_df_property('custom_about_applicant', 'reqd', 0);
+        }
+        else {frm.set_df_property('custom_about_applicant', 'hidden', 0);
+            frm.set_df_property('custom_about_applicant', 'reqd', 1);
+        }
+        // frm.toggle_reqd('custom_about_applicant', true);
+        frm.refresh_field('custom_about_applicant');
+    },
 
-
-
-
-
+    //Auto fill skills 
     custom_auto_fill: function(frm){
         //Code For New Row In Child Table => let row = frm.add_child('applicant_skills',{skill:'Leadership',number_of_experience:2,rating:4})
         frappe.call({
@@ -230,7 +242,6 @@ frappe.ui.form.on("Applicant Profile", {
                     // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                     // console.log(r.message);
                     // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                    
                     const _json = r.message;
                     _json.forEach(data => {
                         frm.add_child('applicant_skills',{
@@ -240,7 +251,6 @@ frappe.ui.form.on("Applicant Profile", {
                         })
                     });
                     frm.refresh_field('applicant_skills');
-
                     // const _json = r.message;
                     // _json.skills.forEach(skill => {
                     //     frm.add_child('applicant_skills',{
@@ -273,10 +283,9 @@ frappe.ui.form.on("Applicant Profile", {
             }
         })        
         frm.refresh_field('applicant_skills');
-
     },
 
-    //ACTIONS TAB
+    //Action Table and buttons actions
     custom_disable_till_process_get_finish:function(frm){
         frappe.call({
             method:'app36t.apis36t.getStringValueWithDelay',
@@ -309,6 +318,7 @@ frappe.ui.form.on("Applicant Profile", {
         })
     },
 
+    //Calculating Age in days months and years
     date_of_birth (frm){
         // alert('Date of Birth Event Called here');
         dob=frm.selected_doc.date_of_birth
@@ -325,6 +335,7 @@ frappe.ui.form.on("Applicant Profile", {
         })
     },
 
+    //Calling AI API for Analysis
     do_profile_analysis(frm){
         // alert("clicked by hsb in JS on do_profile_analysis!!!")
         try{
@@ -370,6 +381,8 @@ frappe.ui.form.on("Applicant Profile", {
             console.log(e.message);
         }
     },
+
+    //Calling Weather API and location
     custom_capture_now(frm){
         try{
             frappe.call({
@@ -449,10 +462,12 @@ frappe.ui.form.on("Applicant Profile", {
     },
 })
 
+//Child Table Events.
 frappe.ui.form.on('Applicant Skills', {
     // cdt is Child DocType name i.e Quotation Item
     // cdn is the row name for e.g bbfcb8da6a
 
+    //Setting absulote count for rating stars
     rating(frm, cdt, cdn) {
         const targets = [0.333, 0.666, 0.999];
         let row = frappe.get_doc(cdt, cdn);
