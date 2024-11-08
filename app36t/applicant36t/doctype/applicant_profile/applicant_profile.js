@@ -11,11 +11,22 @@ frappe.ui.form.on("Applicant Profile", {
 
     //refresh event
     refresh: function(frm) {
-        frm.set_df_property('custom_current_location', 'hidden', 1);
-        frm.set_df_property('custom_about_applicant', 'reqd', 1);
+        //Conditional Required Field controls for About
+        if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){
+            frm.set_df_property('custom_about_applicant', 'hidden', 1);
+            frm.set_df_property('custom_about_applicant', 'reqd', 0);
+        }
+        else {frm.set_df_property('custom_about_applicant', 'hidden', 0);
+            frm.set_df_property('custom_about_applicant', 'reqd', 1);
+        }
+        // frm.toggle_reqd('custom_about_applicant', true);
+        frm.refresh_field('custom_about_applicant');
+
+        //Intro message only if new record.
         if (frm.is_new()){
             frm.set_intro('Please allow location access to this page which will give brief detail.');
         }
+
         // All Custom Button Examples
         // REFERENCE => https://frappeframework.com/docs/user/en/api/dialog
         frm.add_custom_button(__('Dialog API'), function() {
@@ -218,7 +229,7 @@ frappe.ui.form.on("Applicant Profile", {
 
     },
 
-    //I not prefer to tell About show and hide
+    //Conditional Required Field controls for About Event Controlling
     custom_not_eligible_for_dependants: function(frm){
         if (frm.fields_dict.custom_not_eligible_for_dependants.value>0){
             frm.set_df_property('custom_about_applicant', 'hidden', 1);
