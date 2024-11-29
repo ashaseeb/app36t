@@ -383,7 +383,7 @@ frappe.ui.form.on("Applicant Profile", {
                 },
                 freeze:true,
                 freeze_message:__('<span style="display: block;text-align:center;">'
-                                 +'<img src="https://cdn.pixabay.com/animation/2023/08/21/13/31/13-31-04-403_512.gif" alt="Processing" style="width:100px; height:100px;"></br>'
+                                 +'<img src="https://global.discourse-cdn.com/sitepoint/original/3X/e/3/e352b26bbfa8b233050087d6cb32667da3ff809c.gif" alt="Processing" style="width:100px; height:100px;"></br>'
                                  +'Please Wait...</br>AI is Reviewing the request</span>'),
             })
         }catch (e) {
