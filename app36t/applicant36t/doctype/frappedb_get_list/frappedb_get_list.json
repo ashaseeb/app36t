@@ -1,0 +1,207 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:GetList-{####}",
+ "creation": "2024-11-30 03:52:05.589566",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "h1",
+  "section_break_qjjp",
+  "p1",
+  "p1h1",
+  "p1b1",
+  "p1b2",
+  "p2",
+  "p2h1",
+  "p2b1",
+  "p2b2",
+  "p3",
+  "p3h1",
+  "p3b1",
+  "p3b2",
+  "p4",
+  "p4h1",
+  "p4b1",
+  "p4b2",
+  "p5",
+  "p5h1",
+  "p5b1",
+  "p5b2",
+  "p6",
+  "p6h1",
+  "p6b1",
+  "p6b2",
+  "section_break_epwd",
+  "txtinput",
+  "column_break_rxuf",
+  "txtresult"
+ ],
+ "fields": [
+  {
+   "fieldname": "h1",
+   "fieldtype": "Heading",
+   "label": "PRACTICE: Frappe.db.get_list"
+  },
+  {
+   "fieldname": "section_break_qjjp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "p1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p1h1",
+   "fieldtype": "Heading",
+   "label": "Practice 01"
+  },
+  {
+   "fieldname": "p1b1",
+   "fieldtype": "Button",
+   "label": "Fill Input"
+  },
+  {
+   "fieldname": "p1b2",
+   "fieldtype": "Button",
+   "label": "Execute For Result"
+  },
+  {
+   "fieldname": "p2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p2h1",
+   "fieldtype": "Heading",
+   "label": "Practice 02"
+  },
+  {
+   "fieldname": "p2b1",
+   "fieldtype": "Button",
+   "label": "Fill Input"
+  },
+  {
+   "fieldname": "p2b2",
+   "fieldtype": "Button",
+   "label": "Execute For Result"
+  },
+  {
+   "fieldname": "p3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p3h1",
+   "fieldtype": "Heading",
+   "label": "Practice 03"
+  },
+  {
+   "fieldname": "p3b1",
+   "fieldtype": "Button",
+   "label": "Fill Input"
+  },
+  {
+   "fieldname": "p3b2",
+   "fieldtype": "Button",
+   "label": "Execute For Result"
+  },
+  {
+   "fieldname": "p4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p4h1",
+   "fieldtype": "Heading",
+   "label": "Practice 04"
+  },
+  {
+   "fieldname": "p4b1",
+   "fieldtype": "Button",
+   "label": "Fill Input"
+  },
+  {
+   "fieldname": "p4b2",
+   "fieldtype": "Button",
+   "label": "Execute For Result"
+  },
+  {
+   "fieldname": "p5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p5h1",
+   "fieldtype": "Heading",
+   "label": "Practice 05"
+  },
+  {
+   "fieldname": "p5b1",
+   "fieldtype": "Button",
+   "label": "Fill Input"
+  },
+  {
+   "fieldname": "p5b2",
+   "fieldtype": "Button",
+   "label": "Execute For Result"
+  },
+  {
+   "fieldname": "p6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p6h1",
+   "fieldtype": "Heading",
+   "label": "Practice 06"
+  },
+  {
+   "fieldname": "p6b1",
+   "fieldtype": "Button",
+   "label": "Fill Input"
+  },
+  {
+   "fieldname": "p6b2",
+   "fieldtype": "Button",
+   "label": "Execute For Result"
+  },
+  {
+   "fieldname": "section_break_epwd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "txtinput",
+   "fieldtype": "Long Text",
+   "label": "INPUT"
+  },
+  {
+   "fieldname": "column_break_rxuf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "txtresult",
+   "fieldtype": "Long Text",
+   "label": "RESULT"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-11-30 04:08:08.622469",
+ "modified_by": "Administrator",
+ "module": "Applicant36t",
+ "name": "frappedb-get_list",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
