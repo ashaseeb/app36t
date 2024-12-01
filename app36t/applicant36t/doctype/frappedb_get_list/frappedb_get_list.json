@@ -35,7 +35,9 @@
   "section_break_epwd",
   "txtinput",
   "column_break_rxuf",
-  "txtresult"
+  "txtresult",
+  "section_break_temy",
+  "txtlog"
  ],
  "fields": [
   {
@@ -168,7 +170,8 @@
   {
    "fieldname": "txtinput",
    "fieldtype": "Long Text",
-   "label": "INPUT"
+   "label": "INPUT",
+   "max_height": "150px"
   },
   {
    "fieldname": "column_break_rxuf",
@@ -177,13 +180,24 @@
   {
    "fieldname": "txtresult",
    "fieldtype": "Long Text",
-   "label": "RESULT"
+   "label": "RESULT",
+   "max_height": "150px"
+  },
+  {
+   "fieldname": "section_break_temy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "txtlog",
+   "fieldtype": "Long Text",
+   "label": "Log",
+   "max_height": "150px"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-11-30 04:08:08.622469",
+ "modified": "2024-11-30 06:00:58.287475",
  "modified_by": "Administrator",
  "module": "Applicant36t",
  "name": "frappedb-get_list",
