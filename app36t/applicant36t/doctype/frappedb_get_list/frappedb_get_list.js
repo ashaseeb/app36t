@@ -4,18 +4,27 @@
 frappe.ui.form.on('frappedb-get_list', {
     refresh : function(frm){
         set_css(frm);
+
+        // Setting up theme and colors here.
         // frm.fields_dict['p1b1'].$wrapper.find('button').css('width', '180px')
         // frm.fields_dict['p1b2'].$wrapper.find('button').css('width', '180px')
-
-        //SETTINGS THEME HERE
         let targetButtonIds = ['p1h1','p2h1','p3h1','p4h1','p5h1','p6h1','p1b1','p1b2','p2b1','p2b2','p3b1','p3b2','p4b1','p4b2','p5b1','p5b2','p6b1','p6b2']; // Replace with actual button names
         set_button_width(frm,targetButtonIds);
 
+        //Settings the properties of controls here.
         frm.set_df_property('txtlog', 'read_only', 1);
+
+        //Generating Logs
         generateLog(frm,'System logs begin here...');
         generateLog(frm,'waiting for input and execute...');
+    },
+
+    p1b1: function(frm){
+        alert('button click p1b1');
     }
 });
+
+
 function set_css(frm){
     try{
         document.querySelectorAll("[data-fieldname='txtlog']")[1].style.color = 'red';
@@ -62,12 +71,13 @@ function set_button_width(frm,targetButtonIds) {
             let g = Math.floor(Math.random() * 100); // Dark Color 
             let b = Math.floor(Math.random() * 100); // Dark Color
                 
-            $(frm.wrapper).find('*').filter('[data-fieldname="p1"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
-            $(frm.wrapper).find('*').filter('[data-fieldname="p2"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
-            $(frm.wrapper).find('*').filter('[data-fieldname="p3"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
-            $(frm.wrapper).find('*').filter('[data-fieldname="p4"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
-            $(frm.wrapper).find('*').filter('[data-fieldname="p5"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
-            $(frm.wrapper).find('*').filter('[data-fieldname="p6"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
+            //PRACTICE HEADING BACKGROUND RANDOM COLOR CHANGING.
+            // $(frm.wrapper).find('*').filter('[data-fieldname="p1"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
+            // $(frm.wrapper).find('*').filter('[data-fieldname="p2"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
+            // $(frm.wrapper).find('*').filter('[data-fieldname="p3"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
+            // $(frm.wrapper).find('*').filter('[data-fieldname="p4"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
+            // $(frm.wrapper).find('*').filter('[data-fieldname="p5"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
+            // $(frm.wrapper).find('*').filter('[data-fieldname="p6"]').css('background', `rgb(${Math.floor(200 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)}, ${Math.floor(150 + Math.random() * 106)})`);
 
             // Check if the button's id or name is in the array
             // if (targetButtonIdsOrNames.includes(buttonId) || targetButtonIdsOrNames.includes(buttonName)) {
